@@ -87,7 +87,7 @@ Code • Hardware • Security • Experiments • Dank tech
 ###
 
 <h4 align="center">
-⚠️ This lab is always active<br>
+Warning ⚠️ This lab is always active<br>
 Things may break • Rebuilds happen • No guarantees
 </h4>
 
