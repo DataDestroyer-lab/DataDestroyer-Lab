@@ -1,7 +1,7 @@
 ## Hi there 👋
 ![deheadline](https://github.com/user-attachments/assets/e4423579-3784-40d0-a083-6c394dd95b42)
 
-<h1 align="center">⚡ DataDestroyerLab ⚡</h1>
+<h1 align="center">⛧ DataDestroyerLab ⛧</h1>
 
 <h3 align="center">
 Breaking systems • Building tools • Shipping chaos responsibly
