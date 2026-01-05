@@ -1,91 +1,84 @@
 ![deheadline](https://github.com/user-attachments/assets/e4423579-3784-40d0-a083-6c394dd95b42)
 
-<h1 align="center">⛧ DataDestroyerLab ⛧</h1>
+from PIL import Image, ImageDraw, ImageFont
+import os
+import random
 
-<h3 align="center">
-Breaking systems • Building tools • Shipping chaos responsibly
-</h3>
+w = 980
+h = 220
+frames = 48
+bg = (8, 10, 16)
+fg = (233, 238, 252)
 
-###
+os.makedirs("assets", exist_ok=True)
 
-<p align="center">
-Founder and solo builder of <b>DataDestroyerLab</b><br>
-Code • Hardware • Security • Experiments • Dank tech
-</p>
+title = "DataDestroyerLab"
+tag = "Breaking systems   Building tools   Shipping chaos responsibly"
 
-###
+ascii_lines = [
+"   ____        _        ____            _                     _           _     ",
+"  |  _ \\  __ _| |_ __ _|  _ \\  ___  ___| |_ _ __ ___  _   _  | |    __ _ | |__  ",
+"  | | | |/ _` | __/ _` | | | |/ _ \\/ __| __| '__/ _ \\| | | | | |   / _` || '_ \\ ",
+"  | |_| | (_| | || (_| | |_| |  __/\\__ \\ |_| | | (_) | |_| | | |__| (_| || |_) |",
+"  |____/ \\__,_|\\__\\__,_|____/ \\___||___/\\__|_|  \\___/ \\__, | |_____\\__,_||_.__/ ",
+"                                                      |___/                     ",
+]
 
-<div align="center">
-  <img src="https://skillicons.dev/icons?i=python" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=js" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=ts" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=html" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=css" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=cpp" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=lua" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=go" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=rust" height="60" />
-</div>
+try:
+    font = ImageFont.truetype("DejaVuSansMono.ttf", 16)
+    font_big = ImageFont.truetype("DejaVuSansMono.ttf", 22)
+except:
+    font = ImageFont.load_default()
+    font_big = ImageFont.load_default()
 
-###
+def jitter(s, strength):
+    out = []
+    for ch in s:
+        if ch == " ":
+            out.append(" ")
+            continue
+        if random.random() < strength:
+            out.append(random.choice(["#", "@", "%", "&", "*", "+", "X"]))
+        else:
+            out.append(ch)
+    return "".join(out)
 
-<div align="center">
-  <img src="https://skillicons.dev/icons?i=arduino" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=raspberrypi" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=linux" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=git" height="60" />
-  <img width="12" />
-  <img src="https://skillicons.dev/icons?i=github" height="60" />
-</div>
+imgs = []
+for i in range(frames):
+    im = Image.new("RGB", (w, h), bg)
+    d = ImageDraw.Draw(im)
 
-###
+    glow = (70, 140, 255) if (i // 6) % 2 == 0 else (255, 80, 200)
 
-<h3 align="center">🧪 What happens in this lab</h3>
+    d.text((26, 14), title, font=font_big, fill=glow)
+    d.text((26, 46), tag, font=font, fill=(180, 190, 220))
 
-<p align="center">
-• Experimental software tools<br>
-• Automation and system utilities<br>
-• Embedded hardware projects<br>
-• Security minded builds<br>
-• Stuff that should not exist but does
-</p>
+    y = 78
+    strength = 0.03 + 0.02 * (i % 6 == 0)
+    for line in ascii_lines:
+        line2 = jitter(line, strength)
+        x_shift = random.randint(0, 2) if i % 8 == 0 else 0
+        d.text((22 + x_shift, y), line2, font=font, fill=fg)
+        y += 20
 
-###
+    if i % 10 == 0:
+        for _ in range(6):
+            yb = random.randint(76, h - 20)
+            d.rectangle([20, yb, w - 20, yb + 2], fill=(40, 55, 95))
 
-<div align="center">
-  <img src="https://img.shields.io/badge/GitHub-DataDestroyerLab-181717?style=for-the-badge&logo=github&logoColor=white" height="28" />
-  <img src="https://img.shields.io/badge/Discord-NWALightYagami-5865F2?style=for-the-badge&logo=discord&logoColor=white" height="28" />
-  <img src="https://img.shields.io/badge/Steam-NWALightYagami-000000?style=for-the-badge&logo=steam&logoColor=white" height="28" />
-</div>
+    imgs.append(im)
 
-###
+out_path = os.path.join("assets", "ascii.gif")
+imgs[0].save(
+    out_path,
+    save_all=True,
+    append_images=imgs[1:],
+    duration=70,
+    loop=0,
+    optimize=False
+)
 
-<div align="center">
-  <img src="https://streak-stats.demolab.com?user=DataDestroyerLab&theme=dracula&border_radius=6" height="150" />
-</div>
+print("made", out_path)
 
-###
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DataDestroyerLab/DataDestroyerLab/output/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/DataDestroyerLab/DataDestroyerLab/output/pacman-contribution-graph.svg">
-</picture>
-
-###
-
-<h4 align="center">
-Warning ⚠️ This lab is always active<br>
-Things may break • Rebuilds happen • No guarantees
 </h4>
 
